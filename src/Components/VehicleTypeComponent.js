@@ -4,11 +4,11 @@ class VehicleTypeComponent extends React.Component {
 
 	state = {
 		vehicleTypes: null,
-		selectedType: null,
+		selectedType: "",
 		vehicles: null
 	}
 
-	handleTypeChange = e => this.setState({ selectedType: e.target.value })
+	handleTypeChange = e => this.setState({ [e.target.name]: e.target.value })
 
 	componentDidMount() {
 		if (!this.state.vehicleTypes) {
@@ -35,14 +35,14 @@ class VehicleTypeComponent extends React.Component {
 					this.state.vehicleTypes &&
 					<select value={this.state.selectedType} name="selectedType" onChange={this.handleTypeChange}>
 						<option>- select an option -</option>
-						{this.state.vehicleTypes.map(typeObj => <option value={typeObj.id}>{typeObj.type}</option>)}
+						{this.state.vehicleTypes.map(typeObj => <option value={typeObj.id} key={typeObj.id}>{typeObj.type}</option>)}
 					</select>
 				}
 				{
 					this.state.vehicles &&
 					<div>
 						{this.state.vehicles.map(vehicle =>
-							<div>
+							<div key={vehicle.id}>
 								<h3>Make: {vehicle.model}</h3>
 								<p>Model: {vehicle.make}</p>
 								<p>Year: {vehicle.year}</p>
